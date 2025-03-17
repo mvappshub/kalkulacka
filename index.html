@@ -1,165 +1,215 @@
-<html><head><base href="https://retro-vinyl-calculator.wasteland" target="_blank">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalkulačka zaplnění na 75% - Retro Konzole</title>
-<style>
-    body {
-        font-family: 'VT323', monospace;
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #000;
-        color: #0f0;
-        text-shadow: 0 0 5px #0f0;
-        box-shadow: 0 0 20px #0f0;
-        border: 2px solid #0f0;
-        min-height: calc(100vh - 40px);
-        box-sizing: border-box;
-        position: relative;
-        overflow: hidden;
-    }
-    body::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: repeating-linear-gradient(
-            0deg,
-            rgba(0, 255, 0, 0.15),
-            rgba(0, 255, 0, 0.15) 1px,
-            transparent 1px,
-            transparent 2px
-        );
-        pointer-events: none;
-        animation: scan 10s linear infinite;
-    }
-    @keyframes scan {
-        0% {
-            background-position: 0 0;
+<html>
+<head>
+    <base href="https://retro-vinyl-calculator.wasteland" target="_blank">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinyl Fill Calculator - Retro Console</title>
+    <style>
+        body {
+            font-family: 'VT323', monospace;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #000;
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+            box-shadow: 0 0 20px #0f0;
+            border: 2px solid #0f0;
+            min-height: calc(100vh - 40px);
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
         }
-        100% {
-            background-position: 0 100%;
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 0, 0.15),
+                rgba(0, 255, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            animation: scan 10s linear infinite;
         }
-    }
-    h1 {
-        color: #0f0;
-        text-align: center;
-        font-size: 2.5em;
-        margin-bottom: 30px;
-    }
-    .calculator {
-        background-color: rgba(0, 50, 0, 0.5);
-        padding: 20px;
-        border-radius: 8px;
-        border: 1px solid #0f0;
-        position: relative;
-    }
-    label {
-        display: block;
-        margin-top: 15px;
-        font-size: 1.2em;
-    }
-    input {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        border: 1px solid #0f0;
-        border-radius: 4px;
-        background-color: #000;
-        color: #0f0;
-        box-sizing: border-box;
-        font-family: 'VT323', monospace;
-        font-size: 1.1em;
-    }
-    button {
-        display: block;
-        width: 100%;
-        padding: 12px;
-        margin-top: 25px;
-        background-color: #0f0;
-        color: #000;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 1.2em;
-        font-family: 'VT323', monospace;
-        transition: all 0.3s ease;
-    }
-    button:hover {
-        background-color: #0a0;
-        box-shadow: 0 0 10px #0f0;
-    }
-    #result {
-        margin-top: 20px;
-        font-weight: bold;
-        text-align: center;
-        color: #0f0;
-        font-size: 1.3em;
-    }
-    .vinyl-animation {
-        width: 150px;
-        height: 150px;
-        background: conic-gradient(from 0deg, #000 0%, #000 25%, #0f0 25%, #0f0 100%);
-        border-radius: 50%;
-        margin: 20px auto;
-        animation: spin 5s linear infinite;
-        box-shadow: 0 0 15px #0f0;
-    }
-    @keyframes spin {
-        100% {
-            transform: rotate(360deg);
+        @keyframes scan {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 100%;
+            }
         }
-    }
-    .crt-effect {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-                    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-        background-size: 100% 2px, 3px 100%;
-        pointer-events: none;
-        z-index: 1000;
-    }
-    .hint {
-        margin-top: 15px;
-        font-size: 0.9em;
-        text-align: center;
-        color: #0f0;
-        opacity: 0.7;
-    }
-</style>
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+        h1 {
+            color: #0f0;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        .calculator {
+            background-color: rgba(0, 50, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #0f0;
+            position: relative;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #0f0;
+            border-radius: 4px;
+            background-color: #000;
+            color: #0f0;
+            box-sizing: border-box;
+            font-family: 'VT323', monospace;
+            font-size: 1.1em;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 25px;
+            background-color: #0f0;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-family: 'VT323', monospace;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #0a0;
+            box-shadow: 0 0 10px #0f0;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+            color: #0f0;
+            font-size: 1.3em;
+            min-height: 1.5em;
+        }
+        .vinyl-animation {
+            width: 150px;
+            height: 150px;
+            background: conic-gradient(from 0deg, #000 0%, #000 25%, #0f0 25%, #0f0 100%);
+            border-radius: 50%;
+            margin: 20px auto;
+            animation: spin 5s linear infinite;
+            box-shadow: 0 0 15px #0f0;
+            position: relative;
+        }
+        .vinyl-animation::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            border: 2px solid #0f0;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .crt-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .hint {
+            margin-top: 15px;
+            font-size: 0.9em;
+            text-align: center;
+            color: #0f0;
+            opacity: 0.7;
+        }
+        .target-percent {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .target-percent label {
+            margin-top: 0;
+            margin-right: 10px;
+            flex: 1;
+        }
+        .target-percent input {
+            width: 80px;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #0f0;
+            opacity: 0.7;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="crt-effect"></div>
-    <h1>Kalkulačka zaplnění na 75%</h1>
-    <div class="vinyl-animation"></div>
+    <h1>Vinyl Fill Calculator</h1>
+    <div class="vinyl-animation" id="vinyl"></div>
     <div class="calculator">
         <label for="um1">Land A (µm):</label>
         <input type="number" id="um1" step="0.1" required>
         
-        <label for="percent1">Procenta zaplnění A:</label>
+        <label for="percent1">Fill Percentage A:</label>
         <input type="number" id="percent1" step="0.1" required>
         
         <label for="um2">Land B (µm):</label>
         <input type="number" id="um2" step="0.1" required>
         
-        <label for="percent2">Procenta zaplnění B:</label>
+        <label for="percent2">Fill Percentage B:</label>
         <input type="number" id="percent2" step="0.1" required>
         
-        <button onclick="calculate()">Vypočítat</button>
+        <div class="target-percent">
+            <label for="targetPercent">Target Fill Percentage:</label>
+            <input type="number" id="targetPercent" value="75" step="0.1" required>
+        </div>
+        
+        <button onclick="calculate()">Calculate</button>
         
         <div id="result"></div>
         
-        <div class="hint">TIP: Podržte SHIFT pro změnu hodnoty po 0.1</div>
+        <div class="hint">TIP: Hold SHIFT for 0.1 increments</div>
+    </div>
+    
+    <div class="footer">
+        <p>Retro Vinyl Calculator v2.0</p>
     </div>
 
     <script>
-        function linearInterpolation(um1, percent1, um2, percent2, targetPercent = 75) {
+        function linearInterpolation(um1, percent1, um2, percent2, targetPercent) {
+            // Check if inputs are valid for interpolation
+            if (percent1 === percent2) {
+                return null; // Cannot interpolate when percentages are the same
+            }
+            
             let m = (percent2 - percent1) / (um2 - um1);
             let b = percent1 - m * um1;
             let umTarget = (targetPercent - b) / m;
@@ -171,23 +221,47 @@
             let percent1 = parseFloat(document.getElementById('percent1').value);
             let um2 = parseFloat(document.getElementById('um2').value);
             let percent2 = parseFloat(document.getElementById('percent2').value);
+            let targetPercent = parseFloat(document.getElementById('targetPercent').value);
 
-            if (isNaN(um1) || isNaN(percent1) || isNaN(um2) || isNaN(percent2)) {
-                document.getElementById('result').innerHTML = "CHYBA: Neplatný vstup. Zadejte čísla.";
+            // Clear previous result
+            document.getElementById('result').innerHTML = "";
+            
+            // Validate inputs
+            if (isNaN(um1) || isNaN(percent1) || isNaN(um2) || isNaN(percent2) || isNaN(targetPercent)) {
+                document.getElementById('result').innerHTML = "ERROR: Invalid input. Please enter numbers.";
                 return;
             }
-
-            let result = linearInterpolation(um1, percent1, um2, percent2);
-            // Zaokrouhlení nahoru na desetiny
-            result = Math.ceil(result * 10) / 10;
-            document.getElementById('result').innerHTML = `VÝSLEDEK: ${result.toFixed(1)} µm pro 75% zaplnění`;
             
-            // Update vinyl animation
-            let vinylAnimation = document.querySelector('.vinyl-animation');
-            vinylAnimation.style.background = `conic-gradient(from 0deg, #000 0%, #000 ${75}%, #0f0 ${75}%, #0f0 100%)`;
+            if (percent1 === percent2) {
+                document.getElementById('result').innerHTML = "ERROR: Fill percentages must be different for interpolation.";
+                return;
+            }
+            
+            if ((targetPercent < Math.min(percent1, percent2)) || (targetPercent > Math.max(percent1, percent2))) {
+                document.getElementById('result').innerHTML = "WARNING: Target percentage is outside the range of input percentages. Extrapolating...";
+            }
+
+            let result = linearInterpolation(um1, percent1, um2, percent2, targetPercent);
+            
+            if (result === null) {
+                document.getElementById('result').innerHTML = "ERROR: Cannot calculate with these values.";
+                return;
+            }
+            
+            // Round up to one decimal place
+            result = Math.ceil(result * 10) / 10;
+            
+            // Display result
+            setTimeout(() => {
+                document.getElementById('result').innerHTML += `RESULT: ${result.toFixed(1)} µm for ${targetPercent}% fill`;
+            }, 300);
+            
+            // Update vinyl animation to show the target percentage
+            let vinylAnimation = document.getElementById('vinyl');
+            vinylAnimation.style.background = `conic-gradient(from 0deg, #000 0%, #000 ${100-targetPercent}%, #0f0 ${100-targetPercent}%, #0f0 100%)`;
         }
 
-        // Přidání efektu náhodného šumu
+        // Add random noise effect for CRT look
         function addNoise() {
             let noise = document.createElement('div');
             noise.style.position = 'fixed';
@@ -204,7 +278,7 @@
         }
         setInterval(addNoise, 50);
 
-        // Přidání funkcionality pro změnu hodnoty po 0.1 při držení Shift
+        // Add functionality for 0.1 increments when holding Shift
         document.querySelectorAll('input[type="number"]').forEach(input => {
             input.addEventListener('keydown', function(e) {
                 if (e.shiftKey) {
@@ -230,6 +304,15 @@
                 }
             });
         });
+        
+        // Set initial vinyl animation
+        document.getElementById('vinyl').style.background = `conic-gradient(from 0deg, #000 0%, #000 25%, #0f0 25%, #0f0 100%)`;
+        
+        // Add some sample values to make testing easier
+        document.getElementById('um1').value = "1.5";
+        document.getElementById('percent1').value = "60";
+        document.getElementById('um2').value = "2.5";
+        document.getElementById('percent2').value = "85";
     </script>
 </body>
 </html>
